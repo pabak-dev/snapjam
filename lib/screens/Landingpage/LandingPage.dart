@@ -6,7 +6,11 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: cc.whiteColor,
+      body : Stack(
+        children: [
 
+        ],
+      )
     );
   }
 }
