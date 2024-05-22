@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:snapjam/SplashScreen.dart';
-import 'package:snapjam/constants/Constantcolors.dart';
+import 'SplashScreen.dart';
+import 'constants/Constantcolors.dart';
 
 void main() {
   runApp(const MyApp());
