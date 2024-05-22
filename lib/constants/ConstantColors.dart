@@ -33,4 +33,15 @@ class Constantcolors{
       ),
     );
   }
+
+  Container bodyColor() {
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: const [0.5, 0.9],
+              colors: [darkColor, lightBlueColor])),
+    );
+  }
 }
