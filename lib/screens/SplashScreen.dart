@@ -25,34 +25,19 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
+  Constantcolors cc = Constantcolors();
+
   @override
   Widget build(BuildContext context) {
-    Constantcolors cc = Constantcolors();
+
 
     return Scaffold(
       backgroundColor: cc.darkColor,
       body: Center(
-        child: RichText(
-          text: TextSpan(
-            text: 'Snap',
-            style: TextStyle(
-              color: cc.whiteColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 28
-            ),
-            children: <TextSpan>[
-              TextSpan(
-                text: "Jam",
-                style: TextStyle(
-                    color: cc.redColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 28
-                ),
-              )
-            ]
-          ),
-        ),
+        child: cc.IconSJ(),
       ),
     );
   }
+
+
 }

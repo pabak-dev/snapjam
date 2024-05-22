@@ -10,4 +10,27 @@ class Constantcolors{
   final Color greenColor = Colors.greenAccent;
   final Color yellowColor =  Colors.yellow;
   final Color greyColor = Colors.grey.shade600;
+
+  RichText IconSJ(){
+    return RichText(
+      text: TextSpan(
+          text: 'Snap',
+          style: TextStyle(
+              color: whiteColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 32
+          ),
+          children: <TextSpan>[
+            TextSpan(
+              text: "Jam",
+              style: TextStyle(
+                  color: redColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 32
+              ),
+            )
+          ]
+      ),
+    );
+  }
 }

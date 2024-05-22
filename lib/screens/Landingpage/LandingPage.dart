@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:snapjam/constants/ConstantColors.dart';
+import 'package:snapjam/screens/SplashScreen.dart';
 
 class LandingPage extends StatelessWidget {
   final Constantcolors cc = Constantcolors();
@@ -10,9 +11,19 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: cc.whiteColor,
-      body : Stack(
+      body: Stack(
+        alignment: AlignmentDirectional.topCenter,
         children: [
           bodyColor(),
+          Column(
+            children : [
+              const SizedBox(height: 175),
+              Transform.scale(
+                scale: 2.0,
+                child: cc.IconSJ()
+              )
+            ]
+          )
         ],
       )
     );
