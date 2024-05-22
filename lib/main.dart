@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Constantcolors cc = Constantcolors();
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
