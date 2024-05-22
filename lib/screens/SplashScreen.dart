@@ -1,5 +1,8 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'constants/Constantcolors.dart';
+import 'package:get/get.dart';
+import 'package:snapjam/screens/Landingpage/LandingPage.dart';
+import '../constants/ConstantColors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,8 +13,22 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
+  void initState(){
+    Timer(
+        Duration(
+            seconds: 1
+        ),
+        (){
+          Get.to(LandingPage());
+        }
+    );
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Constantcolors cc = Constantcolors();
+
     return Scaffold(
       backgroundColor: cc.darkColor,
       body: Center(

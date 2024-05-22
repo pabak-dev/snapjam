@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'SplashScreen.dart';
-import 'constants/Constantcolors.dart';
+import 'package:get/get.dart';
+import 'screens/SplashScreen.dart';
+import 'constants/ConstantColors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Constantcolors cc = Constantcolors();
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Freeman',
