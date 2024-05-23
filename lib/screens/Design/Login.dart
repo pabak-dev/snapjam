@@ -6,11 +6,11 @@ import 'Register.dart';
 
 class Login extends StatelessWidget {
   Constantcolors cc = Constantcolors();
+  var c = Get.put(LoginC());
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController email = TextEditingController();
-    TextEditingController pass = TextEditingController();
+
 
     return Scaffold(
         backgroundColor: cc.whiteColor,
@@ -39,7 +39,7 @@ class Login extends StatelessWidget {
                 SizedBox(
                   width: 300,
                   child: TextField(
-                    controller: pass,
+                    controller: Get.find<LoginC>().pass,
                     textAlign: TextAlign.center,
                     decoration: InputDecoration(
                       hintText: "Enter Password",
