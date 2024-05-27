@@ -1,9 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../Design/Home.dart';
 
 class RegisterC extends GetxController{
-  static void OnRegister(String fName, String lName, String email, String pass){
-    if (GetUtils.isEmail(email) && pass.length >= 6 && fName.isNotEmpty && lName.isNotEmpty){
+  TextEditingController fName = TextEditingController();
+  TextEditingController lName = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController pass = TextEditingController();
+
+  void OnRegister(){
+    if (GetUtils.isEmail(email.text) && pass.text.length >= 6 && fName.text.isNotEmpty && lName.text.isNotEmpty){
       Get.to(Home());
     }
   }

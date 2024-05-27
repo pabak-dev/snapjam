@@ -5,7 +5,7 @@ import 'package:snapjam/screens/Design/Register.dart';
 import '../Design/Login.dart';
 
 class LandingPage extends StatelessWidget {
-  final Constantcolors cc = Constantcolors();
+  final ConstantColors cc = ConstantColors();
 
   LandingPage({super.key});
 
@@ -27,7 +27,7 @@ class LandingPage extends StatelessWidget {
                   child: ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateColor.resolveWith(
-                              (states) => cc.blueGreyColor),
+                              (states) => cc.darkColor),
                           foregroundColor: MaterialStateColor.resolveWith(
                               (states) => cc.greenColor)),
                       onPressed: () {
@@ -42,7 +42,7 @@ class LandingPage extends StatelessWidget {
                           backgroundColor: MaterialStateColor.resolveWith(
                               (states) => cc.whiteColor),
                           foregroundColor: MaterialStateColor.resolveWith(
-                              (states) => cc.blueGreyColor)),
+                              (states) => cc.darkColor)),
                       onPressed: () {
                         Get.to(Register());
                       },

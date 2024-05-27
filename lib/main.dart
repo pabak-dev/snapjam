@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    Constantcolors cc = Constantcolors();
+    ConstantColors cc = ConstantColors();
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,

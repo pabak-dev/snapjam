@@ -5,8 +5,9 @@ import '../Design/Home.dart';
 class LoginC extends GetxController{
   TextEditingController email = TextEditingController();
   TextEditingController pass = TextEditingController();
-  static void OnLogin(String email, String pass){
-    if (GetUtils.isEmail(email) && pass.length >= 6){
+
+  void OnLogin(){
+    if (GetUtils.isEmail(email.text) && pass.text.length >= 6){
       Get.to(Home());
     }
   }

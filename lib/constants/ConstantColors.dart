@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-class Constantcolors{
+class ConstantColors{
   final Color lightColor = const Color(0xff6c788a);
   final Color darkColor = const Color(0xff100E20);
   final Color blueColor = Colors.lightBlueAccent.shade400;

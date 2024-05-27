@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  Constantcolors cc = Constantcolors();
+  ConstantColors cc = ConstantColors();
 
   @override
   Widget build(BuildContext context) {

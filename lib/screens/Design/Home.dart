@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../constants/ConstantColors.dart';
 
@@ -7,7 +6,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Constantcolors cc = Constantcolors();
+    ConstantColors cc = ConstantColors();
 
     return Scaffold(
       backgroundColor: cc.darkColor,

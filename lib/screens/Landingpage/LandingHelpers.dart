@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:snapjam/constants/ConstantColors.dart';
 
 class LandingHelpers with ChangeNotifier{
-  final Constantcolors cc = Constantcolors();
+  final ConstantColors cc = ConstantColors();
   Widget bodyImage(BuildContext context)
   {
     return Container(
