@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "256026000290",
+    "project_id": "snapjam-523",
+    "storage_bucket": "snapjam-523.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256026000290:android:f544931e93ba243367d0fb",
+        "android_client_info": {
+          "package_name": "com.CutawayShotGames.snapjam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256026000290-38ki0tcsravn4kuli6g51g080o002oh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbmVHsVMmaOqxeJ7AGa9XhpFLyAxZueSk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256026000290-38ki0tcsravn4kuli6g51g080o002oh1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
