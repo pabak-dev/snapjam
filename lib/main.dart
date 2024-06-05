@@ -1,9 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'screens/SplashScreen.dart';
+import 'package:provider/provider.dart';
+import 'package:snapjam/screens/Controller/Authentication.dart';
+import 'screens/Design/SplashScreen.dart';
 import 'constants/ConstantColors.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -13,14 +18,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     ConstantColors cc = ConstantColors();
 
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Freeman',
-        secondaryHeaderColor: cc.blueColor,
-        canvasColor: Colors.transparent,
-      ),
-      home: SplashScreen(),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => Authentication())
+        ],
+        child: GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            fontFamily: 'Freeman',
+            secondaryHeaderColor: cc.blueColor,
+            canvasColor: Colors.transparent,
+          ),
+          home: SplashScreen(),
+        )
     );
+
   }
 }

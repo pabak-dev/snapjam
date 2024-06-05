@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:snapjam/screens/Landingpage/LandingPage.dart';
-import '../constants/ConstantColors.dart';
+import '../../constants/ConstantColors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
