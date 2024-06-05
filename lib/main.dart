@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:snapjam/screens/Controller/Authentication.dart';
+import 'package:snapjam/screens/Landingpage/LandingUtils.dart';
+import 'package:snapjam/services/FirebaseOperation.dart';
 import 'screens/Design/SplashScreen.dart';
 import 'constants/ConstantColors.dart';
 
@@ -20,6 +22,8 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
         providers: [
+          ChangeNotifierProvider(create: (_) => LandingUtils()),
+          ChangeNotifierProvider(create: (_) => FirebaseOperation()),
           ChangeNotifierProvider(create: (_) => Authentication())
         ],
         child: GetMaterialApp(
