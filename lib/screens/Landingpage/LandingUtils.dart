@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -13,7 +13,7 @@ class LandingUtils with ChangeNotifier {
     if (pickedUserPic == null) {
       print("select an image");
     } else {
-      //userPic = File(pickedUserPic.path as List<Object>);
+      userPic = File(pickedUserPic.path);
     }
     print(pickedUserPic?.path);
     if(userPic != Null)
