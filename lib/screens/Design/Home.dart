@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:snapjam/screens/Controller/Authentication.dart';
 import '../../constants/ConstantColors.dart';
 
 class Home extends StatelessWidget {
@@ -7,6 +9,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ConstantColors cc = ConstantColors();
+    var auth = Get.put(Authentication());
 
     return Scaffold(
       backgroundColor: cc.darkColor,
@@ -14,7 +17,7 @@ class Home extends StatelessWidget {
         Center(
           child: cc.IconSJ(),
         ),
-        Center(child: Text("Work in progress", style: TextStyle(color: cc.whiteColor, fontSize: 18)))
+        Center(child: Text(auth.getMail, style: TextStyle(color: cc.whiteColor, fontSize: 18)))
       ]),
     );
   }

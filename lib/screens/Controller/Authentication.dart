@@ -5,13 +5,17 @@ class Authentication with ChangeNotifier {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   late String userId;
+   String _mail = "dev.pabak@gmail.com";
   String get getUserId => userId;
+
+  String get getMail => _mail;
 
   Future LogIntoAccount(String mail, String pass) async{
     UserCredential credential = await firebaseAuth.signInWithEmailAndPassword(email: mail, password: pass);
 
     User? user = credential.user;
     userId = user!.uid;
+    _mail = mail;
     print(userId);
     notifyListeners();
   }
@@ -21,6 +25,7 @@ class Authentication with ChangeNotifier {
 
     User? user = credential.user;
     userId = user!.uid;
+    _mail = mail;
     print(userId);
     notifyListeners();
   }

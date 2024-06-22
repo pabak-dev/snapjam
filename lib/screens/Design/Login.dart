@@ -28,7 +28,7 @@ class Login extends StatelessWidget {
                     width: 300,
                     child: TextField(
                       controller: c.email,
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.left,
                       decoration: InputDecoration(
                           labelText: "Enter E-mail",
                           labelStyle: TextStyle(color: cc.whiteColor),
@@ -36,6 +36,7 @@ class Login extends StatelessWidget {
                           prefixIconColor: cc.greenColor,
                           fillColor: cc.blueGreyColor,
                           filled: true,
+
                       ),
                     ),
                   ),
@@ -44,7 +45,7 @@ class Login extends StatelessWidget {
                     width: 300,
                     child: TextField(
                       controller: c.pass,
-                      textAlign: TextAlign.center,
+                      textAlign: TextAlign.left,
                       decoration: InputDecoration(
                         labelText: "Enter Password",
                         labelStyle: TextStyle(color: cc.whiteColor),
