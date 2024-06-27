@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:snapjam/screens/Controller/LoginC.dart';
+import 'package:snapjam/screens/Design/Register.dart';
 import '../../constants/ConstantColors.dart';
 
 class Login extends StatelessWidget {
@@ -21,7 +23,7 @@ class Login extends StatelessWidget {
               child: Column(children: [
                 const SizedBox(height: 175),
                 Transform.scale(scale: 2.0, child: cc.IconSJ()),
-                const SizedBox(height: 275),
+                const SizedBox(height: 240),
                 Column(children: [
                   SizedBox(
                     width: 300,
@@ -30,12 +32,15 @@ class Login extends StatelessWidget {
                       textAlign: TextAlign.left,
                       decoration: InputDecoration(
                           labelText: "Enter E-mail",
-                          labelStyle: TextStyle(color: cc.whiteColor),
+                          labelStyle: TextStyle(color: cc.greyColor),
                           prefixIcon: const Icon(Icons.alternate_email_rounded),
                           prefixIconColor: cc.greenColor,
                           fillColor: cc.blueGreyColor,
                           filled: true,
 
+                      ),
+                      style: TextStyle(
+                        color: cc.whiteColor
                       ),
                     ),
                   ),
@@ -43,15 +48,19 @@ class Login extends StatelessWidget {
                   SizedBox(
                     width: 300,
                     child: TextField(
+                      obscureText: true,
                       controller: c.pass,
                       textAlign: TextAlign.left,
                       decoration: InputDecoration(
                         labelText: "Enter Password",
-                        labelStyle: TextStyle(color: cc.whiteColor),
+                        labelStyle: TextStyle(color: cc.greyColor),
                         prefixIcon: const Icon(Icons.password_rounded),
                         prefixIconColor: cc.greenColor,
                         fillColor: cc.blueGreyColor,
                         filled: true,
+                      ),
+                      style: TextStyle(
+                          color: cc.whiteColor
                       ),
                     ),
                   ),
@@ -69,6 +78,20 @@ class Login extends StatelessWidget {
                         },
                         child: const Text("Log In")),
                   ),
+                  SizedBox(height: 15,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Don't have an account? ", style: TextStyle(color: cc.whiteColor),),
+                      GestureDetector(
+                        child: Text("Create one!", style: TextStyle(color: Colors.black),),
+                        onTap: (){
+                          Get.to(Register());
+                        },
+                      ),
+                    ],
+                  )
+
                 ])
               ]),
             )

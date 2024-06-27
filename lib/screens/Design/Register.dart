@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:snapjam/screens/Design/Login.dart';
 import '../../constants/ConstantColors.dart';
 import '../Controller/RegisterC.dart';
 
@@ -22,21 +23,24 @@ class Register extends StatelessWidget {
                 children: [
                   const SizedBox(height: 175),
                   Transform.scale(scale: 2.0, child: cc.IconSJ()),
-                  const SizedBox(height: 150),
+                  const SizedBox(height: 115),
                   Column(children: [
                     SizedBox(
                       width: 300,
                       child: TextField(
                         controller: c.fName,
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.left,
                         decoration: InputDecoration(
                           hintText: "Enter your first name",
                           labelText: "Enter first name",
-                          labelStyle: TextStyle(color: cc.whiteColor),
+                          labelStyle: TextStyle(color: cc.greyColor),
                           prefixIcon: const Icon(Icons.account_circle_rounded),
                           prefixIconColor: cc.greenColor,
                           fillColor: cc.blueGreyColor,
                           filled: true,
+                        ),
+                        style: TextStyle(
+                            color: cc.whiteColor
                         ),
                       ),
                     ),
@@ -45,15 +49,18 @@ class Register extends StatelessWidget {
                       width: 300,
                       child: TextField(
                         controller: c.lName,
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.left,
                         decoration: InputDecoration(
                           hintText: "Enter your last name",
                           labelText: "Enter last name",
-                          labelStyle: TextStyle(color: cc.whiteColor),
+                          labelStyle: TextStyle(color: cc.greyColor),
                           prefixIcon: const Icon(Icons.account_circle_rounded),
                           prefixIconColor: cc.greenColor,
                           fillColor: cc.blueGreyColor,
                           filled: true,
+                        ),
+                        style: TextStyle(
+                            color: cc.whiteColor
                         ),
                       ),
                     ),
@@ -62,14 +69,17 @@ class Register extends StatelessWidget {
                       width: 300,
                       child: TextField(
                         controller: c.email,
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.left,
                         decoration: InputDecoration(
                           labelText: "Enter E-mail",
-                          labelStyle: TextStyle(color: cc.whiteColor),
+                          labelStyle: TextStyle(color: cc.greyColor),
                           prefixIcon: const Icon(Icons.alternate_email_rounded),
                           prefixIconColor: cc.greenColor,
                           fillColor: cc.blueGreyColor,
                           filled: true,
+                        ),
+                        style: TextStyle(
+                            color: cc.whiteColor
                         ),
                       ),
                     ),
@@ -77,15 +87,19 @@ class Register extends StatelessWidget {
                     SizedBox(
                       width: 300,
                       child: TextField(
+                        obscureText: true,
                         controller: c.pass,
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.left,
                         decoration: InputDecoration(
                           labelText: "Enter Password",
-                          labelStyle: TextStyle(color: cc.whiteColor),
+                          labelStyle: TextStyle(color: cc.greyColor),
                           prefixIcon: const Icon(Icons.password_rounded),
                           prefixIconColor: cc.greenColor,
                           fillColor: cc.blueGreyColor,
                           filled: true,
+                        ),
+                        style: TextStyle(
+                            color: cc.whiteColor,
                         ),
                       ),
                     ),
@@ -103,6 +117,19 @@ class Register extends StatelessWidget {
                           },
                           child: const Text("Register")),
                     ),
+                    SizedBox(height: 15,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Already have an account? ", style: TextStyle(color: cc.whiteColor),),
+                        GestureDetector(
+                          child: Text("Login now!", style: TextStyle(color: Colors.black),),
+                          onTap: (){
+                            Get.to(Login());
+                          },
+                        ),
+                      ],
+                    )
                   ])
               ]),
             )

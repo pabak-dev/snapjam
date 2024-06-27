@@ -11,7 +11,9 @@ class LoginC extends GetxController{
   void OnLogin(){
     if (GetUtils.isEmail(email.text) && pass.text.length >= 6){
       auth.LogIntoAccount(email.text, pass.text).whenComplete((){
-        Get.to(const Home());
+        if (auth.userId != '-1'){
+          Get.to(const Home());
+        }
       });
     }
   }

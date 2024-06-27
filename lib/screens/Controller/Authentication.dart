@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class Authentication with ChangeNotifier {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  late String userId;
-   String _mail = "dev.pabak@gmail.com";
+  late String userId = '-1';
+  String _mail = "dev.pabak@gmail.com";
   String get getUserId => userId;
 
   String get getMail => _mail;

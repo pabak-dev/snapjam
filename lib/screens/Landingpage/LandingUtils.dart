@@ -16,9 +16,6 @@ class LandingUtils with ChangeNotifier {
       userPic = File(pickedUserPic.path);
     }
     print(pickedUserPic?.path);
-    if(userPic != Null)
-    {
-
-    }
+    if (userPic != Null) {}
   }
 }
