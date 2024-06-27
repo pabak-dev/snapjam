@@ -14,7 +14,7 @@ class RegisterC extends GetxController{
     if (GetUtils.isEmail(email.text) && pass.text.length >= 6 && fName.text.isNotEmpty && lName.text.isNotEmpty){
       auth.CreateAccount(email.text, pass.text).whenComplete((){
         if (auth.userId != '-1'){
-          Get.to(const Home());
+          Get.offAll(const Home());
         }
       });
     }

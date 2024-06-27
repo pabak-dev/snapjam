@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
             seconds: 1
         ),
         (){
-          Get.to(LandingPage());
+          Get.offAll(LandingPage());
         }
     );
     super.initState();
@@ -36,6 +36,4 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
-
-
 }
