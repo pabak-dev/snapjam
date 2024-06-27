@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 import 'package:snapjam/screens/Controller/Authentication.dart';
 import '../Design/Home.dart';
 
@@ -12,7 +11,7 @@ class LoginC extends GetxController{
   void OnLogin(){
     if (GetUtils.isEmail(email.text) && pass.text.length >= 6){
       auth.LogIntoAccount(email.text, pass.text).whenComplete((){
-        Get.to(Home());
+        Get.to(const Home());
       });
     }
   }

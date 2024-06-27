@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:snapjam/screens/Controller/LoginC.dart';
@@ -40,7 +39,7 @@ class Login extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   SizedBox(
                     width: 300,
                     child: TextField(
@@ -56,7 +55,7 @@ class Login extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   SizedBox(
                     width: 300,
                     child: ElevatedButton(
@@ -68,7 +67,7 @@ class Login extends StatelessWidget {
                         onPressed: () {
                           c.OnLogin();
                         },
-                        child: Text("Log In")),
+                        child: const Text("Log In")),
                   ),
                 ])
               ]),

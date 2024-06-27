@@ -33,7 +33,7 @@ class LandingPage extends StatelessWidget {
                       onPressed: () {
                         Get.to(Login());
                       },
-                      child: Text("Log In")),
+                      child: const Text("Log In")),
                 ),
                 SizedBox(
                   width: 300,
@@ -46,7 +46,7 @@ class LandingPage extends StatelessWidget {
                       onPressed: () {
                         Get.to(Register());
                       },
-                      child: Text("Create New Account")),
+                      child: const Text("Create New Account")),
                 )
               ])
             ])

@@ -8,7 +8,7 @@ class LandingHelpers with ChangeNotifier{
     return Container(
       height: MediaQuery.of(context).size.height*0.7,
       width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.brown,
       ),
     );
@@ -19,7 +19,7 @@ class LandingHelpers with ChangeNotifier{
       top:450,
       left:15,
       child: Container(
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
           maxWidth: 175,
         ),
         child: RichText(

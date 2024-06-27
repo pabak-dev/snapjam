@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
             secondaryHeaderColor: cc.blueColor,
             canvasColor: Colors.transparent,
           ),
-          home: SplashScreen(),
+          home: const SplashScreen(),
         )
     );
 

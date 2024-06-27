@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import '../../constants/ConstantColors.dart';
 import '../Controller/RegisterC.dart';
@@ -42,7 +40,7 @@ class Register extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     SizedBox(
                       width: 300,
                       child: TextField(
@@ -59,7 +57,7 @@ class Register extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     SizedBox(
                       width: 300,
                       child: TextField(
@@ -75,7 +73,7 @@ class Register extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     SizedBox(
                       width: 300,
                       child: TextField(
@@ -91,7 +89,7 @@ class Register extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 25),
+                    const SizedBox(height: 25),
                     SizedBox(
                       width: 300,
                       child: ElevatedButton(
@@ -103,7 +101,7 @@ class Register extends StatelessWidget {
                           onPressed: () {
                             c.OnRegister();
                           },
-                          child: Text("Register")),
+                          child: const Text("Register")),
                     ),
                   ])
               ]),

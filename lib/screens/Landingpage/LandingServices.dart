@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:snapjam/constants/ConstantColors.dart';
-import 'package:snapjam/screens/Landingpage/LandingUtils.dart';
 
 class LandingServices with ChangeNotifier {
   TextEditingController UserEmail = TextEditingController();
@@ -15,6 +13,10 @@ class LandingServices with ChangeNotifier {
           return Container(
             height: MediaQuery.of(context).size.height * 0.45,
             width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              color: cc.blueGreyColor,
+              borderRadius: BorderRadius.circular(14.0),
+            ),
             child: Column(
               children: [
                 Padding(
@@ -24,16 +26,12 @@ class LandingServices with ChangeNotifier {
                     color: cc.whiteColor,
                   ),
                 ),
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 85.0,
                   //backgroundImage: FileImage(
                   //),
                 )
               ],
-            ),
-            decoration: BoxDecoration(
-              color: cc.blueGreyColor,
-              borderRadius: BorderRadius.circular(14.0),
             ),
           );
         });
