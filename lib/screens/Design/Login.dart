@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:snapjam/screens/Controller/LoginC.dart';
@@ -78,13 +77,13 @@ class Login extends StatelessWidget {
                         },
                         child: const Text("Log In")),
                   ),
-                  SizedBox(height: 15,),
+                  const SizedBox(height: 15,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("Don't have an account? ", style: TextStyle(color: cc.whiteColor),),
                       GestureDetector(
-                        child: Text("Create one!", style: TextStyle(color: Colors.black),),
+                        child: const Text("Create one!", style: TextStyle(color: Colors.black),),
                         onTap: (){
                           Get.to(Register());
                         },

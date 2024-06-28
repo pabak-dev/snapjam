@@ -117,13 +117,13 @@ class Register extends StatelessWidget {
                           },
                           child: const Text("Register")),
                     ),
-                    SizedBox(height: 15,),
+                    const SizedBox(height: 15,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Already have an account? ", style: TextStyle(color: cc.whiteColor),),
                         GestureDetector(
-                          child: Text("Login now!", style: TextStyle(color: Colors.black),),
+                          child: const Text("Login now!", style: TextStyle(color: Colors.black),),
                           onTap: (){
                             Get.to(Login());
                           },

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:snapjam/constants/ConstantColors.dart';
 import 'package:snapjam/screens/Design/Register.dart';
-import '../Design/Login.dart';
+import 'Login.dart';
 
 class LandingPage extends StatelessWidget {
   final ConstantColors cc = ConstantColors();

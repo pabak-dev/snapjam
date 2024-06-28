@@ -5,7 +5,7 @@ class Authentication with ChangeNotifier {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   late String userId = '-1';
-  String _mail = "dev.pabak@gmail.com";
+  String _mail = "example@gmail.com";
   String get getUserId => userId;
 
   String get getMail => _mail;
