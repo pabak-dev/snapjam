@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:snapjam/screens/Controller/LoginC.dart';
@@ -5,10 +6,12 @@ import 'package:snapjam/screens/Design/Register.dart';
 import '../../constants/ConstantColors.dart';
 
 class Login extends StatelessWidget {
-  final ConstantColors cc = ConstantColors();
-  final c = Get.put(LoginC());
 
   Login({super.key});
+
+  final ConstantColors cc = ConstantColors();
+
+  final c = Get.put(LoginC());
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +76,7 @@ class Login extends StatelessWidget {
                             foregroundColor: MaterialStateColor.resolveWith(
                                     (states) => cc.greenColor)),
                         onPressed: () {
-                          c.OnLogin();
+                            c.OnLogin();
                         },
                         child: const Text("Log In")),
                   ),

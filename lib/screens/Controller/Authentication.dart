@@ -1,33 +1,60 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:snapjam/screens/Design/Login.dart';
+import 'package:snapjam/screens/Design/Register.dart';
 
 class Authentication with ChangeNotifier {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   late String userId = '-1';
-  String _mail = "example@gmail.com";
-  String get getUserId => userId;
+  static String _mail = "example@gmail.com";
 
+  String get getUserId => userId;
   String get getMail => _mail;
 
-  Future LogIntoAccount(String mail, String pass) async{
-    UserCredential credential = await firebaseAuth.signInWithEmailAndPassword(email: mail, password: pass);
+  User? get getUser => firebaseAuth.currentUser;
 
-    User? user = credential.user;
-    userId = user!.uid;
-    _mail = mail;
-    print(userId);
-    notifyListeners();
+  Future LogIntoAccount(String mail, String pass) async{
+    try {
+      UserCredential credential = await firebaseAuth.signInWithEmailAndPassword(
+          email: mail, password: pass);
+
+      User? user = credential.user;
+      userId = user!.uid;
+      _mail = mail;
+      print(userId);
+      notifyListeners();
+    }
+    on FirebaseAuthException catch (e){
+      DisplayMessage(e.code);
+    }
+  }
+
+  void DisplayMessage(String s){
+    Get.showSnackbar(GetSnackBar(
+      message: s,
+      title: "Error",
+      duration: Duration(seconds: 2),
+      isDismissible: true,
+    ) );
   }
 
   Future CreateAccount(String mail, String pass) async{
-    UserCredential credential = await firebaseAuth.createUserWithEmailAndPassword(email: mail, password: pass);
 
-    User? user = credential.user;
-    userId = user!.uid;
-    _mail = mail;
-    print(userId);
-    notifyListeners();
+    try {
+      UserCredential credential = await firebaseAuth.createUserWithEmailAndPassword(
+          email: mail, password: pass);
+
+      User? user = credential.user;
+      userId = user!.uid;
+      _mail = mail;
+      print(userId);
+      notifyListeners();
+    }
+    on FirebaseAuthException catch (e){
+      DisplayMessage(e.code);
+    }
   }
 
   Future LogOut(){

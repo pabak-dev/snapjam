@@ -9,12 +9,10 @@ class LoginC extends GetxController{
   final auth = Get.put(Authentication());
 
   void OnLogin(){
-    if (GetUtils.isEmail(email.text) && pass.text.length >= 6){
-      auth.LogIntoAccount(email.text, pass.text).whenComplete((){
-        if (auth.userId != '-1'){
-          Get.offAll(const Home());
-        }
-      });
-    }
+    auth.LogIntoAccount(email.text, pass.text).whenComplete((){
+      if (auth.userId != '-1'){
+        Get.offAll(const Home());
+      }
+    });
   }
 }

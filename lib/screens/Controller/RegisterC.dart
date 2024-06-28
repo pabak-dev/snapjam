@@ -11,7 +11,7 @@ class RegisterC extends GetxController{
   final auth = Get.put(Authentication());
 
   void OnRegister(){
-    if (GetUtils.isEmail(email.text) && pass.text.length >= 6 && fName.text.isNotEmpty && lName.text.isNotEmpty){
+    if (fName.text.isNotEmpty && lName.text.isNotEmpty){
       auth.CreateAccount(email.text, pass.text).whenComplete((){
         if (auth.userId != '-1'){
           Get.offAll(const Home());

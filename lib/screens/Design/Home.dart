@@ -8,8 +8,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ConstantColors cc = ConstantColors();
-    var auth = Get.put(Authentication());
+    final ConstantColors cc = ConstantColors();
+    final auth = Get.put(Authentication());
 
     return Scaffold(
       backgroundColor: cc.darkColor,
@@ -17,8 +17,16 @@ class Home extends StatelessWidget {
         Center(
           child: cc.IconSJ(),
         ),
-        Center(child: Text(auth.getMail, style: TextStyle(color: cc.whiteColor, fontSize: 18)))
+        Center(child: Text(auth.getUser!.email!, style: TextStyle(color: cc.whiteColor, fontSize: 18)))
       ]),
+      appBar: AppBar(
+        backgroundColor: Colors.grey[900],
+        title: Text("SnapJam", style: TextStyle(color: cc.whiteColor),),
+        centerTitle: true,
+        actions: [
+          IconButton(onPressed: () => auth.LogOut(), icon: Icon(Icons.logout_rounded, color: cc.redColor,))
+        ],
+      ),
     );
   }
 }
