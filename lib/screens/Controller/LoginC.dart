@@ -11,6 +11,9 @@ class LoginC extends GetxController{
   void OnLogin(){
     auth.LogIntoAccount(email.text, pass.text).whenComplete((){
       if (auth.userId != '-1'){
+        email.clear();
+        pass.clear();
+
         Get.offAll(const Home());
       }
     });

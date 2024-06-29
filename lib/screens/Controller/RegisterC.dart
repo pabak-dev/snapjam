@@ -14,6 +14,11 @@ class RegisterC extends GetxController{
     if (fName.text.isNotEmpty && lName.text.isNotEmpty){
       auth.CreateAccount(email.text, pass.text).whenComplete((){
         if (auth.userId != '-1'){
+          email.clear();
+          pass.clear();
+          fName.clear();
+          lName.clear();
+
           Get.offAll(const Home());
         }
       });
