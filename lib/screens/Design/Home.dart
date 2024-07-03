@@ -57,35 +57,49 @@ class Home extends StatelessWidget {
           ]),
           Padding(
             padding: const EdgeInsets.all(8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+            child: Column(
               children: [
-                IconButton(
-                    onPressed: () => print("Photos"),
-                    icon: Icon(
-                      Icons.photo_library_rounded,
-                      color: cc.greenColor,
+                if (c.pickedFile != null)
+                  Text(c.getPickedFile!.name, style: TextStyle(color: cc.whiteColor),),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (c.pickedFile == null)
+                      IconButton(
+                          onPressed: () => c.SelectFile(),
+                          icon: Icon(
+                            Icons.photo_library_rounded,
+                            color: cc.greenColor,
+                          )),
+                    if (c.pickedFile != null)
+                      IconButton(
+                        onPressed: () => c.ClearFile(),
+                        icon: Icon(
+                          Icons.cancel_rounded,
+                          color: cc.redColor,
+                      )),
+                    Expanded(
+                        child: TextField(
+                      controller: c.postController,
+                      textAlign: TextAlign.left,
+                      decoration: InputDecoration(
+                        labelText: "Share your moment...",
+                        labelStyle: TextStyle(color: cc.greyColor),
+                        //   prefixIcon: const Icon(Icons.post_add_rounded),
+                        prefixIconColor: cc.greyColor,
+                        fillColor: cc.blueGreyColor,
+                        filled: true,
+                      ),
+                      style: TextStyle(color: cc.whiteColor),
                     )),
-                Expanded(
-                    child: TextField(
-                  controller: c.postController,
-                  textAlign: TextAlign.left,
-                  decoration: InputDecoration(
-                    labelText: "Share your moment...",
-                    labelStyle: TextStyle(color: cc.greyColor),
-                    //   prefixIcon: const Icon(Icons.post_add_rounded),
-                    prefixIconColor: cc.greyColor,
-                    fillColor: cc.blueGreyColor,
-                    filled: true,
-                  ),
-                  style: TextStyle(color: cc.whiteColor),
-                )),
-                IconButton(
-                    onPressed: () => c.CreatePost(),
-                    icon: Icon(
-                      Icons.send_rounded,
-                      color: cc.whiteColor,
-                    ))
+                    IconButton(
+                        onPressed: () => c.CreatePost(),
+                        icon: Icon(
+                          Icons.send_rounded,
+                          color: cc.whiteColor,
+                        ))
+                  ],
+                ),
               ],
             ),
           )
