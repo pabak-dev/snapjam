@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:snapjam/screens/Design/Login.dart';
-import 'package:snapjam/screens/Design/Register.dart';
+import 'package:snapjam/screens/Design/LandingPage.dart';
 
 class Authentication with ChangeNotifier {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -35,7 +34,7 @@ class Authentication with ChangeNotifier {
     Get.showSnackbar(GetSnackBar(
       message: s,
       title: "Error",
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       isDismissible: true,
     ) );
   }
@@ -57,7 +56,8 @@ class Authentication with ChangeNotifier {
     }
   }
 
-  Future LogOut(){
-    return firebaseAuth.signOut();
+  void LogOut(){
+    firebaseAuth.signOut();
+    Get.offAll(LandingPage());
   }
 }
