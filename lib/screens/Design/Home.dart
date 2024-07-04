@@ -72,6 +72,8 @@ class _HomeState extends State<Home> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                //  if (c.task != null)
+                  //  Text(c.getUploadProgress.toString(), style: TextStyle(color: cc.whiteColor),),
                   if (c.pickedFile != null)
                     Text(c.getPickedFile!.name, style: TextStyle(color: cc.whiteColor),),
                   Row(
@@ -116,7 +118,7 @@ class _HomeState extends State<Home> {
                             setState((){});
                           },
                           icon: Icon(
-                            Icons.send_rounded,
+                            Icons.file_upload_outlined,
                             color: cc.whiteColor,
                           ))
                     ],

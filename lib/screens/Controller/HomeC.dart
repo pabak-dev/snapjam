@@ -13,6 +13,10 @@ class HomeC extends GetxController{
 
   PlatformFile? get getPickedFile => pickedFile;
 
+  UploadTask? task;
+  double get getUploadProgress => (task!.snapshot.bytesTransferred * 100.0 / task!.snapshot.totalBytes);
+
+
   Future CreatePost() async{
     if (postController.text.isNotEmpty){
       User? user = FirebaseAuth.instance.currentUser;
@@ -50,9 +54,10 @@ class HomeC extends GetxController{
     final path = 'files1/${'${pickedFile!.name} ${Timestamp.now()}'}';
 
     final ref = FirebaseStorage.instance.ref().child(path);
-    UploadTask task = ref.putFile(file);
+    task = ref.putFile(file);
 
-    await task.whenComplete(() => pickedFile = null);
+
+    await task!.whenComplete(() => pickedFile = null);
     return ref.getDownloadURL();
   }
 
