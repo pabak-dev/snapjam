@@ -10,6 +10,7 @@ class ConstantColors{
   final Color greenColor = Colors.greenAccent;
   final Color yellowColor =  Colors.yellow;
   final Color greyColor = Colors.grey.shade600;
+  final Color purpleColor = Colors.purple;
 
   RichText IconSJ(){
     return RichText(

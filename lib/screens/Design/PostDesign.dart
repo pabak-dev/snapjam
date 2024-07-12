@@ -75,7 +75,7 @@ class PostWidget extends StatelessWidget {
                           Icons.thumb_up_alt_rounded,
                           size: 28,
                         ),
-                        color: (c.getLikeStatus(likes)) ? cc.greenColor : cc.greyColor,
+                        color: (c.getLikeStatus(likes)) ? cc.purpleColor : cc.greyColor,
                         onPressed: (){
                           c.HandleLike(docName);
                         },
