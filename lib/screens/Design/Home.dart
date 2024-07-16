@@ -28,6 +28,65 @@ class _HomeState extends State<Home> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10, top: 10),
+            child:
+              Column(
+                children: [
+                  //  if (c.task != null)
+                  //  Text(c.getUploadProgress.toString(), style: TextStyle(color: cc.whiteColor),),
+                  if (c.pickedFile != null)
+                    Text(c.getPickedFile!.name, style: TextStyle(color: cc.whiteColor),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      (c.pickedFile == null) ?
+                      IconButton(
+                          onPressed: () async {
+                            await c.SelectFile();
+                            setState((){});
+                          },
+                          icon: Icon(
+                            Icons.photo_library_rounded,
+                            color: cc.whiteColor,
+                          ))
+                          : IconButton(
+                          onPressed: (){
+                            c.ClearFile();
+                            setState((){});
+                          },
+                          icon: Icon(
+                            Icons.cancel_rounded,
+                            color: cc.redColor,
+                          )),
+                      Expanded(
+                          child: TextField(
+                            controller: c.postController,
+                            textAlign: TextAlign.left,
+                            decoration: InputDecoration(
+                              labelText: "Share your moment...",
+                              labelStyle: TextStyle(color: cc.greyColor),
+
+                              prefixIconColor: cc.greyColor,
+                              fillColor: cc.blueGreyColor,
+                              filled: true,
+                            ),
+                            style: TextStyle(color: cc.whiteColor),
+                          )),
+                      IconButton(
+                          onPressed: () async{
+                            await c.CreatePost();
+                            setState((){});
+                          },
+                          icon: Icon(
+                            Icons.file_upload_outlined,
+                            color: cc.whiteColor,
+                          ))
+                    ],
+                  ),
+                ],
+              ),
+          ),
           Expanded(
             child:
               Padding(
@@ -35,7 +94,7 @@ class _HomeState extends State<Home> {
                 child: StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('Posts')
-                      .orderBy("TimeStamp", descending: false)
+                      .orderBy("TimeStamp", descending: true)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
@@ -45,7 +104,6 @@ class _HomeState extends State<Home> {
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
                             final post = snapshot.data!.docs[index];
-                            print(post.id);
                             return PostWidget(
                                 user: post['UserMail'],
                                 /*timeStamp: post['TimeStamp'],*/
@@ -67,70 +125,11 @@ class _HomeState extends State<Home> {
                 ),
               )
           ),
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                //  if (c.task != null)
-                  //  Text(c.getUploadProgress.toString(), style: TextStyle(color: cc.whiteColor),),
-                  if (c.pickedFile != null)
-                    Text(c.getPickedFile!.name, style: TextStyle(color: cc.whiteColor),),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                        (c.pickedFile == null) ?
-                        IconButton(
-                          onPressed: () async {
-                            await c.SelectFile();
-                            setState((){});
-                            },
-                          icon: Icon(
-                            Icons.photo_library_rounded,
-                            color: cc.greenColor,
-                          ))
-                        : IconButton(
-                            onPressed: (){
-                              c.ClearFile();
-                              setState((){});
-                              },
-                            icon: Icon(
-                              Icons.cancel_rounded,
-                              color: cc.redColor,
-                            )),
-                      Expanded(
-                          child: TextField(
-                        controller: c.postController,
-                        textAlign: TextAlign.left,
-                        decoration: InputDecoration(
-                          labelText: "Share your moment...",
-                          labelStyle: TextStyle(color: cc.greyColor),
-                          //   prefixIcon: const Icon(Icons.post_add_rounded),
-                          prefixIconColor: cc.greyColor,
-                          fillColor: cc.blueGreyColor,
-                          filled: true,
-                        ),
-                        style: TextStyle(color: cc.whiteColor),
-                      )),
-                      IconButton(
-                          onPressed: () async{
-                            await c.CreatePost();
-                            setState((){});
-                          },
-                          icon: Icon(
-                            Icons.file_upload_outlined,
-                            color: cc.whiteColor,
-                          ))
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          )
         ],
       ),
       appBar: AppBar(
         backgroundColor: Colors.blueGrey[900],
+
         leading: IconButton(
             onPressed: () => print("Account"),
             icon: Icon(
@@ -147,7 +146,7 @@ class _HomeState extends State<Home> {
                       style: TextStyle(color: cc.whiteColor, fontSize: 14, fontStyle: FontStyle.italic))),
             ]),
         centerTitle: true,
-        toolbarHeight: 80,
+        toolbarHeight: 70,
         actions: [
           IconButton(
               onPressed: () => auth.LogOut(),

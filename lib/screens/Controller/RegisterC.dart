@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:snapjam/screens/Controller/Authentication.dart';
@@ -14,6 +16,8 @@ class RegisterC extends GetxController{
     if (fName.text.isNotEmpty && lName.text.isNotEmpty){
       auth.CreateAccount(email.text, pass.text).whenComplete((){
         if (auth.userId != '-1'){
+          CreateUser();
+
           email.clear();
           pass.clear();
           fName.clear();
@@ -23,5 +27,14 @@ class RegisterC extends GetxController{
         }
       });
     }
+  }
+
+  Future CreateUser() async{
+    User? user = FirebaseAuth.instance.currentUser;
+
+    await FirebaseFirestore.instance.collection('Users').add({
+      'UserMail' : user!.email,
+      'Created' : Timestamp.now(),
+    });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../constants/ConstantColors.dart';
 class Comment extends StatelessWidget {
@@ -5,31 +6,67 @@ class Comment extends StatelessWidget {
   final String user;
   final String time;
   final ConstantColors cc = ConstantColors();
+
+  User? userFirebase = FirebaseAuth.instance.currentUser;
+
   Comment({super.key,
     required this.text,
     required this.user,
     required this.time,
   });
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: cc.blueGreyColor,
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Column
-        (
+          color: cc.altColor, borderRadius: BorderRadius.circular(10)),
+      margin: const EdgeInsets.only(top: 10, left: 20, right: 40),
+      padding: const EdgeInsets.all(15),
+      child: Column(
         children: [
-          Text(text),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(user),
-              Text("       "),
-              Text(time),
+              const Icon(
+                Icons.circle_rounded,
+                size: 32,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    user,
+                    style: TextStyle(color: cc.lightBlueColor),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    text,
+                    style: TextStyle(color: cc.whiteColor, fontSize: 16),
+                  ),
+                ],
+              ),
+              Spacer(),
+              if (userFirebase!.email == user)
+                IconButton(
+                  icon: const Icon(
+                    Icons.delete_rounded,
+                    size: 28,
+                  ),
+                  color: cc.greyColor,
+                  onPressed: () {/*c.deletePost(docName);*/},
+                ),
             ],
-          )
+          ),
         ],
-      )
+      ),
     );
   }
 }

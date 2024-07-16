@@ -7,10 +7,11 @@ class ConstantColors{
   final Color redColor  =  Colors.red;
   final Color whiteColor = Colors.white;
   final Color blueGreyColor = Colors.blueGrey.shade900;
+  final Color altColor = Colors.blueGrey.shade800;
   final Color greenColor = Colors.greenAccent;
   final Color yellowColor =  Colors.yellow;
   final Color greyColor = Colors.grey.shade600;
-  final Color purpleColor = Colors.purple;
+  final Color purpleColor = Colors.pinkAccent;
 
   RichText IconSJ(){
     return RichText(

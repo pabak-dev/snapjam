@@ -23,15 +23,17 @@ class HomeC extends GetxController{
 
       String url = await UploadFile();
 
-      FirebaseFirestore.instance.collection('Posts').add({
+      DocumentReference<Map<String, dynamic>> docRef = await FirebaseFirestore.instance.collection('Posts').add({
         'UserMail' : user!.email,
         'Message' : postController.text,
         'TimeStamp' : Timestamp.now(),
         'FileURL' : url,
-        'Likes': []
+        'Likes': [],
       });
 
       postController.clear();
+
+      docRef.collection("Comments");
     }
   }
 
@@ -109,5 +111,19 @@ class HomeC extends GetxController{
       transaction.delete(docRef);
       return;
     });
+  }
+
+  Future CreateComment(TextEditingController commentTextController, docName) async{
+    if (commentTextController.text.isNotEmpty){
+      User? user = FirebaseAuth.instance.currentUser;
+
+      await FirebaseFirestore.instance.collection('Posts').doc(docName).collection('Comments').add({
+        'UserMail' : user!.email,
+        'Message' : commentTextController.text,
+        'TimeStamp' : Timestamp.now(),
+      });
+
+      commentTextController.clear();
+    }
   }
 }
