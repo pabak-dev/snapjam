@@ -22,7 +22,6 @@ class Authentication with ChangeNotifier {
       User? user = credential.user;
       userId = user!.uid;
       _mail = mail;
-      print(userId);
       notifyListeners();
     }
     on FirebaseAuthException catch (e){

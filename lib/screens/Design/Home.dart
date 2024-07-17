@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:snapjam/screens/Controller/Authentication.dart';
 import 'package:snapjam/screens/Controller/HomeC.dart';
+import 'package:snapjam/screens/Design/AccountPage.dart';
 import 'package:snapjam/screens/Design/PostDesign.dart';
 import '../../constants/ConstantColors.dart';
 
@@ -28,65 +29,7 @@ class _HomeState extends State<Home> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10, top: 10),
-            child:
-              Column(
-                children: [
-                  //  if (c.task != null)
-                  //  Text(c.getUploadProgress.toString(), style: TextStyle(color: cc.whiteColor),),
-                  if (c.pickedFile != null)
-                    Text(c.getPickedFile!.name, style: TextStyle(color: cc.whiteColor),),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      (c.pickedFile == null) ?
-                      IconButton(
-                          onPressed: () async {
-                            await c.SelectFile();
-                            setState((){});
-                          },
-                          icon: Icon(
-                            Icons.photo_library_rounded,
-                            color: cc.whiteColor,
-                          ))
-                          : IconButton(
-                          onPressed: (){
-                            c.ClearFile();
-                            setState((){});
-                          },
-                          icon: Icon(
-                            Icons.cancel_rounded,
-                            color: cc.redColor,
-                          )),
-                      Expanded(
-                          child: TextField(
-                            controller: c.postController,
-                            textAlign: TextAlign.left,
-                            decoration: InputDecoration(
-                              labelText: "Share your moment...",
-                              labelStyle: TextStyle(color: cc.greyColor),
 
-                              prefixIconColor: cc.greyColor,
-                              fillColor: cc.blueGreyColor,
-                              filled: true,
-                            ),
-                            style: TextStyle(color: cc.whiteColor),
-                          )),
-                      IconButton(
-                          onPressed: () async{
-                            await c.CreatePost();
-                            setState((){});
-                          },
-                          icon: Icon(
-                            Icons.file_upload_outlined,
-                            color: cc.whiteColor,
-                          ))
-                    ],
-                  ),
-                ],
-              ),
-          ),
           Expanded(
             child:
               Padding(
@@ -101,17 +44,80 @@ class _HomeState extends State<Home> {
                       return ListView.builder(
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
-                          itemCount: snapshot.data!.docs.length,
+                          itemCount: snapshot.data!.docs.length + 1,
                           itemBuilder: (context, index) {
-                            final post = snapshot.data!.docs[index];
-                            return PostWidget(
-                                user: post['UserMail'],
-                                /*timeStamp: post['TimeStamp'],*/
-                                message: post['Message'],
-                                url: post['FileURL'],
-                                docName: post.id,
-                                likes: List<String>.from(post['Likes'] as List)
-                            );
+                            if (index == 0) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 10, top: 10),
+                                child:
+                                Column(
+                                  children: [
+                                    //  if (c.task != null)
+                                    //  Text(c.getUploadProgress.toString(), style: TextStyle(color: cc.whiteColor),),
+                                    if (c.pickedFile != null)
+                                      Text(c.getPickedFile!.name, style: TextStyle(color: cc.whiteColor),),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        (c.pickedFile == null) ?
+                                        IconButton(
+                                            onPressed: () async {
+                                              await c.SelectFile();
+                                              setState((){});
+                                            },
+                                            icon: Icon(
+                                              Icons.photo_library_rounded,
+                                              color: cc.whiteColor,
+                                            ))
+                                            : IconButton(
+                                            onPressed: (){
+                                              c.ClearFile();
+                                              setState((){});
+                                            },
+                                            icon: Icon(
+                                              Icons.cancel_rounded,
+                                              color: cc.redColor,
+                                            )),
+                                        Expanded(
+                                            child: TextField(
+                                              controller: c.postController,
+                                              textAlign: TextAlign.left,
+                                              decoration: InputDecoration(
+                                                labelText: "Share your moment...",
+                                                labelStyle: TextStyle(color: cc.greyColor),
+
+                                                prefixIconColor: cc.greyColor,
+                                                fillColor: cc.blueGreyColor,
+                                                filled: true,
+                                              ),
+                                              style: TextStyle(color: cc.whiteColor),
+                                            )),
+                                        IconButton(
+                                            onPressed: () async{
+                                              await c.CreatePost();
+                                              setState((){});
+                                            },
+                                            icon: Icon(
+                                              Icons.file_upload_outlined,
+                                              color: cc.whiteColor,
+                                            ))
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                            else{
+                              final post = snapshot.data!.docs[index-1];
+                              return PostWidget(
+                                  user: post['UserMail'],
+                                  /*timeStamp: post['TimeStamp'],*/
+                                  message: post['Message'],
+                                  url: post['FileURL'],
+                                  docName: post.id,
+                                  likes: List<String>.from(post['Likes'] as List),
+                              );
+                            }
                           });
                     } else {
                       return Center(
@@ -131,7 +137,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.blueGrey[900],
 
         leading: IconButton(
-            onPressed: () => print("Account"),
+            onPressed: () => Get.to(const AccountPage()),
             icon: Icon(
               Icons.account_circle_rounded,
               color: cc.whiteColor,

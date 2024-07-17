@@ -37,7 +37,7 @@ class _PostWidgetState extends State<PostWidget> {
 
   final HomeC c = Get.put(HomeC());
 
-  bool commentsOpened = false;
+  bool commentsOpened = true;
 
   User? userFirebase = FirebaseAuth.instance.currentUser;
 
@@ -102,29 +102,13 @@ class _PostWidgetState extends State<PostWidget> {
                           Text(widget.likes.length.toString(), style: TextStyle(color: cc.whiteColor),),
                         ],
                       ),
-                      Row(
-                        children: [
-                          IconButton(
-                            icon: Icon(
-                              commentsOpened ? Icons.comments_disabled_rounded : Icons.comment_rounded,
-                              size: 28,
-                            ),
-                            color: commentsOpened ? cc.greenColor : cc.greyColor,
-                            onPressed: () {
-                              commentsOpened = !commentsOpened;
-                              setState((){});
-                              },
-                          ),
-                          Text('0', style: TextStyle(color: cc.whiteColor),),
-                        ],
-                      ),
                     ],
                   ),
                 ],
               ),
-              if (widget.url != null && widget.url != 'null')
-                const SizedBox(
-                  height: 10,
+
+                SizedBox(
+                  height: (widget.url != null && widget.url != 'null') ? 10 : 30,
                 ),
               if (widget.url != null && widget.url != 'null')
                 ClipRRect(
@@ -136,9 +120,21 @@ class _PostWidgetState extends State<PostWidget> {
                     errorWidget: (context, url, error) => const Icon(Icons.error),
                   ),
                 ),
+              const SizedBox(height: 5,),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  IconButton(
+                    icon: Icon(
+                      commentsOpened ? Icons.comments_disabled_rounded : Icons.comment_rounded,
+                      size: 28,
+                    ),
+                    color: commentsOpened ? cc.greenColor : cc.greyColor,
+                    onPressed: () {
+                      commentsOpened = !commentsOpened;
+                      setState((){});
+                    },
+                  ),
                   if (userFirebase!.email == widget.user)
                     IconButton(
                       icon: const Icon(
@@ -167,7 +163,7 @@ class _PostWidgetState extends State<PostWidget> {
                           textAlign: TextAlign.left,
                           decoration: InputDecoration(
                             labelText: "Leave a comment",
-                            labelStyle: TextStyle(color: Colors.grey),
+                            labelStyle: const TextStyle(color: Colors.grey),
                             prefixIconColor: cc.greyColor,
                             fillColor: cc.altColor,
                             filled: true,

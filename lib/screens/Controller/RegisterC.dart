@@ -35,6 +35,8 @@ class RegisterC extends GetxController{
     await FirebaseFirestore.instance.collection('Users').add({
       'UserMail' : user!.email,
       'Created' : Timestamp.now(),
+      'FirstName' : fName.text,
+      'LastName' : lName.text
     });
   }
 }

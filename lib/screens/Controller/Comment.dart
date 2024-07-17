@@ -53,7 +53,7 @@ class Comment extends StatelessWidget {
                   ),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               if (userFirebase!.email == user)
                 IconButton(
                   icon: const Icon(
