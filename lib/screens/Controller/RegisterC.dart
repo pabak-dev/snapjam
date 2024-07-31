@@ -37,7 +37,9 @@ class RegisterC extends GetxController{
       'Created' : Timestamp.now(),
       'FirstName' : fName.text,
       'LastName' : lName.text,
-      'ProfileImage' : 'null'
+      'ProfileImage' : 'null',
+      'Followers' : [],
+      'Following' : []
     });
   }
 }

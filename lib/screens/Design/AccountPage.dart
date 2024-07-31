@@ -4,12 +4,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:snapjam/constants/ConstantColors.dart';
+import 'package:snapjam/screens/Controller/AccountC.dart';
 import 'package:snapjam/screens/Controller/Authentication.dart';
 import 'package:snapjam/screens/Design/Home.dart';
 
 class AccountPage extends StatefulWidget {
   AccountPage({super.key, required this.mail});
   final String mail;
+
+
 
   @override
   State<AccountPage> createState() => _AccountPageState();
@@ -21,6 +24,7 @@ class _AccountPageState extends State<AccountPage> {
     final ConstantColors cc = ConstantColors();
     final auth = Get.put(Authentication());
     final User? user = FirebaseAuth.instance.currentUser;
+    final c = Get.put(AccountC());
 
     return Scaffold(
       backgroundColor: cc.darkColor,
@@ -37,25 +41,55 @@ class _AccountPageState extends State<AccountPage> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Center(
-                    child: ClipOval(
-                      child: SizedBox(
-                          height: 100,
-                          width: 100,
-                          child: CachedNetworkImage(
-                            imageUrl: 'https://placehold.co/600x400/png',
-                          )), // Replace with actual image URL
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ClipOval(
+                        child: SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: CachedNetworkImage(
+                              imageUrl: (snapshot.data!['ProfileImage'] == 'null') ? 'https://placehold.co/600x400/png' : snapshot.data!['ProfileImage'],
+                            )), // Replace with actual image URL
+                      ),
+                      if (widget.mail == user!.email)
+                      IconButton(
+                          onPressed: () async {
+                            await c.SelectFile();
+                            setState(() {});
+                          },
+                          icon: Icon(
+                            Icons.file_upload_outlined,
+                            color: cc.whiteColor,
+                          ))
+                    ],
                   ),
-                  SizedBox(height: 16.0),
-                  Center(
-                    child: Text(
-                      snapshot.data!['FirstName'] + ' ' + snapshot.data!['LastName'],
-                      style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: cc.whiteColor),
-                    ),
+                  const SizedBox(height: 16.0),
+                  Row(
+                    children: [
+                      Text(
+                        snapshot.data!['FirstName']
+                            + ' '
+                            + snapshot.data!['LastName'],
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: cc.whiteColor),
+                      ),
+                      Spacer(),
+                      if (widget.mail != user.email)
+                      IconButton(
+                          onPressed: () async {
+                            c.FollowToggle(widget.mail);
+                            setState(() {});
+                          },
+                          icon: Icon(
+                            List<String>.from(snapshot.data!['Followers'] as List).contains(user.email) ?
+                            Icons.star_rounded :
+                            Icons.star_border_rounded,
+                            color: cc.yellowColor,
+                          ))
+                    ],
                   ),
                   const SizedBox(height: 16.0),
                   const Divider(),
@@ -97,14 +131,16 @@ class _AccountPageState extends State<AccountPage> {
                       style: TextStyle(color: cc.blueColor),
                     ),
                     subtitle: Text(
-                      (snapshot.data!['Created'] as Timestamp).toDate().toString().substring(0, 10),
+                      (snapshot.data!['Created'] as Timestamp)
+                          .toDate()
+                          .toString()
+                          .substring(0, 10),
                       style: TextStyle(color: cc.whiteColor),
                     ),
                   ),
                 ],
               );
-            }
-            else{
+            } else {
               return const Placeholder();
             }
           },
