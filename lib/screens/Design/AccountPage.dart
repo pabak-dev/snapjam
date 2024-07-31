@@ -1,25 +1,115 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:snapjam/constants/ConstantColors.dart';
 import 'package:snapjam/screens/Controller/Authentication.dart';
-import 'package:snapjam/screens/Controller/HomeC.dart';
 import 'package:snapjam/screens/Design/Home.dart';
 
-class AccountPage extends StatelessWidget {
-  const AccountPage({super.key});
+class AccountPage extends StatefulWidget {
+  AccountPage({super.key, required this.mail});
+  final String mail;
 
+  @override
+  State<AccountPage> createState() => _AccountPageState();
+}
+
+class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     final ConstantColors cc = ConstantColors();
     final auth = Get.put(Authentication());
     final User? user = FirebaseAuth.instance.currentUser;
 
-    final c = Get.put(HomeC());
-
     return Scaffold(
       backgroundColor: cc.darkColor,
-//      body:
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('Users')
+              //  .orderBy("TimeStamp", descending: true)
+              .doc(widget.mail)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData && !snapshot.hasError) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Center(
+                    child: ClipOval(
+                      child: SizedBox(
+                          height: 100,
+                          width: 100,
+                          child: CachedNetworkImage(
+                            imageUrl: 'https://placehold.co/600x400/png',
+                          )), // Replace with actual image URL
+                    ),
+                  ),
+                  SizedBox(height: 16.0),
+                  Center(
+                    child: Text(
+                      snapshot.data!['FirstName'] + ' ' + snapshot.data!['LastName'],
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: cc.whiteColor),
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  const Divider(),
+                  ListTile(
+                    leading: Icon(
+                      Icons.email_rounded,
+                      color: cc.greenColor,
+                    ),
+                    title: Text(
+                      'Email',
+                      style: TextStyle(color: cc.blueColor),
+                    ),
+                    subtitle: Text(
+                      snapshot.data!['UserMail'],
+                      style: TextStyle(color: cc.whiteColor),
+                    ),
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.link,
+                      color: cc.greenColor,
+                    ),
+                    title: Text(
+                      'Website',
+                      style: TextStyle(color: cc.blueColor),
+                    ),
+                    subtitle: Text(
+                      'https://userwebsite.com',
+                      style: TextStyle(color: cc.whiteColor),
+                    ),
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.calendar_today_rounded,
+                      color: cc.greenColor,
+                    ),
+                    title: Text(
+                      'Joined On',
+                      style: TextStyle(color: cc.blueColor),
+                    ),
+                    subtitle: Text(
+                      (snapshot.data!['Created'] as Timestamp).toDate().toString().substring(0, 10),
+                      style: TextStyle(color: cc.whiteColor),
+                    ),
+                  ),
+                ],
+              );
+            }
+            else{
+              return const Placeholder();
+            }
+          },
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.blueGrey[900],
         leading: IconButton(

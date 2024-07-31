@@ -32,11 +32,12 @@ class RegisterC extends GetxController{
   Future CreateUser() async{
     User? user = FirebaseAuth.instance.currentUser;
 
-    await FirebaseFirestore.instance.collection('Users').add({
-      'UserMail' : user!.email,
+    await FirebaseFirestore.instance.collection('Users').doc(user!.email).set({
+      'UserMail' : user.email,
       'Created' : Timestamp.now(),
       'FirstName' : fName.text,
-      'LastName' : lName.text
+      'LastName' : lName.text,
+      'ProfileImage' : 'null'
     });
   }
 }

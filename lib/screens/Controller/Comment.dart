@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:snapjam/screens/Design/AccountPage.dart';
 import '../../constants/ConstantColors.dart';
 class Comment extends StatelessWidget {
   final String text;
@@ -27,9 +30,14 @@ class Comment extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(
-                Icons.circle_rounded,
-                size: 32,
+              IconButton(
+                onPressed: () {
+                  Get.to(AccountPage(mail: user));
+                },
+                icon: const Icon(
+                  Icons.circle_rounded,
+                  size: 32,
+                ),
               ),
               const SizedBox(
                 width: 8,
@@ -40,9 +48,14 @@ class Comment extends StatelessWidget {
                   const SizedBox(
                     height: 5,
                   ),
-                  Text(
-                    user,
-                    style: TextStyle(color: cc.lightBlueColor),
+                  GestureDetector(
+                    child: Text(
+                      user,
+                      style: TextStyle(color: cc.lightBlueColor),
+                    ),
+                    onTap: (){
+                      Get.to(AccountPage(mail: user));
+                    },
                   ),
                   const SizedBox(
                     height: 8,

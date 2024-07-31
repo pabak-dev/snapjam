@@ -120,10 +120,63 @@ class _HomeState extends State<Home> {
                             }
                           });
                     } else {
-                      return Center(
-                        child: Text(
-                          "An unexpected error occurred!",
-                          style: TextStyle(color: cc.whiteColor),
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10, top: 10),
+                        child:
+                        Column(
+                          children: [
+                            //  if (c.task != null)
+                            //  Text(c.getUploadProgress.toString(), style: TextStyle(color: cc.whiteColor),),
+                            if (c.pickedFile != null)
+                              Text(c.getPickedFile!.name, style: TextStyle(color: cc.whiteColor),),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                (c.pickedFile == null) ?
+                                IconButton(
+                                    onPressed: () async {
+                                      await c.SelectFile();
+                                      setState((){});
+                                    },
+                                    icon: Icon(
+                                      Icons.photo_library_rounded,
+                                      color: cc.whiteColor,
+                                    ))
+                                    : IconButton(
+                                    onPressed: (){
+                                      c.ClearFile();
+                                      setState((){});
+                                    },
+                                    icon: Icon(
+                                      Icons.cancel_rounded,
+                                      color: cc.redColor,
+                                    )),
+                                Expanded(
+                                    child: TextField(
+                                      controller: c.postController,
+                                      textAlign: TextAlign.left,
+                                      decoration: InputDecoration(
+                                        labelText: "Share your moment...",
+                                        labelStyle: TextStyle(color: cc.greyColor),
+
+                                        prefixIconColor: cc.greyColor,
+                                        fillColor: cc.blueGreyColor,
+                                        filled: true,
+                                      ),
+                                      style: TextStyle(color: cc.whiteColor),
+                                    )),
+                                IconButton(
+                                    onPressed: () async{
+                                      await c.CreatePost();
+                                      setState((){});
+                                    },
+                                    icon: Icon(
+                                      Icons.file_upload_outlined,
+                                      color: cc.whiteColor,
+                                    ))
+                              ],
+                            ),
+                          ],
                         ),
                       );
                     }
@@ -131,13 +184,35 @@ class _HomeState extends State<Home> {
                 ),
               )
           ),
+          Container(
+              decoration: BoxDecoration(
+                  color: cc.blueGreyColor),
+              height: 60,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  IconButton(
+                      onPressed: () => print("search"),
+                      icon: Icon(
+                        Icons.search_rounded,
+                        color: cc.whiteColor,
+                      )),
+                  IconButton(
+                      onPressed: (){print("credits");},
+                      icon: Icon(
+                        Icons.info_rounded,
+                        color: cc.whiteColor,
+                      ))
+                ],
+              )
+          )
         ],
       ),
       appBar: AppBar(
         backgroundColor: Colors.blueGrey[900],
 
         leading: IconButton(
-            onPressed: () => Get.to(const AccountPage()),
+            onPressed: () => Get.to(AccountPage(mail: user!.email!,)),
             icon: Icon(
               Icons.account_circle_rounded,
               color: cc.whiteColor,

@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:snapjam/constants/ConstantColors.dart';
 import 'package:snapjam/screens/Controller/Comment.dart';
+import 'package:snapjam/screens/Design/AccountPage.dart';
 
 import '../Controller/HomeC.dart';
 
@@ -19,14 +21,14 @@ class PostWidget extends StatefulWidget {
 
   final TextEditingController commentTextController = TextEditingController();
 
-
   PostWidget(
       {super.key,
       required this.user,
       // required this.timeStamp,
       required this.message,
       this.url,
-      required this.docName, required this.likes});
+      required this.docName,
+      required this.likes});
 
   @override
   State<PostWidget> createState() => _PostWidgetState();
@@ -40,7 +42,6 @@ class _PostWidgetState extends State<PostWidget> {
   bool commentsOpened = true;
 
   User? userFirebase = FirebaseAuth.instance.currentUser;
-
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +57,16 @@ class _PostWidgetState extends State<PostWidget> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(
-                    Icons.circle_rounded,
-                    size: 32,
+                  IconButton(
+                    onPressed: () {
+                        Get.to(AccountPage(mail: widget.user));
+                      },
+                    icon: const Icon(
+                      Icons.circle_rounded,
+                      size: 32,
+                    ),
                   ),
+
                   const SizedBox(
                     width: 8,
                   ),
@@ -69,9 +76,14 @@ class _PostWidgetState extends State<PostWidget> {
                       const SizedBox(
                         height: 5,
                       ),
-                      Text(
-                        widget.user,
-                        style: TextStyle(color: cc.lightBlueColor),
+                      GestureDetector(
+                        child: Text(
+                          widget.user,
+                          style: TextStyle(color: cc.lightBlueColor),
+                        ),
+                        onTap: (){
+                          Get.to(AccountPage(mail: widget.user));
+                        },
                       ),
                       const SizedBox(
                         height: 8,
@@ -93,46 +105,57 @@ class _PostWidgetState extends State<PostWidget> {
                               Icons.thumb_up_alt_rounded,
                               size: 28,
                             ),
-                            color: (c.getLikeStatus(widget.likes)) ? cc.purpleColor : cc.greyColor,
-                            onPressed: (){
+                            color: (c.getLikeStatus(widget.likes))
+                                ? cc.purpleColor
+                                : cc.greyColor,
+                            onPressed: () {
                               c.HandleLike(widget.docName);
-                              setState((){});
+                              setState(() {});
                             },
                           ),
-                          Text(widget.likes.length.toString(), style: TextStyle(color: cc.whiteColor),),
+                          Text(
+                            widget.likes.length.toString(),
+                            style: TextStyle(color: cc.whiteColor),
+                          ),
                         ],
                       ),
                     ],
                   ),
                 ],
               ),
-
-                SizedBox(
-                  height: (widget.url != null && widget.url != 'null') ? 10 : 30,
-                ),
+              SizedBox(
+                height: (widget.url != null && widget.url != 'null') ? 10 : 30,
+              ),
               if (widget.url != null && widget.url != 'null')
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: CachedNetworkImage(
                     imageUrl: widget.url!,
-                    progressIndicatorBuilder: (context, url, downloadProgress) =>
-                        CircularProgressIndicator(value: downloadProgress.progress),
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) =>
+                            CircularProgressIndicator(
+                                value: downloadProgress.progress),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                 ),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
                     icon: Icon(
-                      commentsOpened ? Icons.comments_disabled_rounded : Icons.comment_rounded,
+                      commentsOpened
+                          ? Icons.comments_disabled_rounded
+                          : Icons.comment_rounded,
                       size: 28,
                     ),
                     color: commentsOpened ? cc.greenColor : cc.greyColor,
                     onPressed: () {
                       commentsOpened = !commentsOpened;
-                      setState((){});
+                      setState(() {});
                     },
                   ),
                   if (userFirebase!.email == widget.user)
@@ -142,7 +165,9 @@ class _PostWidgetState extends State<PostWidget> {
                         size: 28,
                       ),
                       color: cc.greyColor,
-                      onPressed: () {c.deletePost(widget.docName);},
+                      onPressed: () {
+                        c.deletePost(widget.docName);
+                      },
                     ),
                 ],
               ),
@@ -153,27 +178,28 @@ class _PostWidgetState extends State<PostWidget> {
           Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 15, right:5, top: 10),
+                padding: const EdgeInsets.only(left: 15, right: 5, top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Expanded(
                         child: TextField(
-                          controller: widget.commentTextController,
-                          textAlign: TextAlign.left,
-                          decoration: InputDecoration(
-                            labelText: "Leave a comment",
-                            labelStyle: const TextStyle(color: Colors.grey),
-                            prefixIconColor: cc.greyColor,
-                            fillColor: cc.altColor,
-                            filled: true,
-                          ),
-                          style: TextStyle(color: cc.whiteColor),
-                        )),
+                      controller: widget.commentTextController,
+                      textAlign: TextAlign.left,
+                      decoration: InputDecoration(
+                        labelText: "Leave a comment",
+                        labelStyle: const TextStyle(color: Colors.grey),
+                        prefixIconColor: cc.greyColor,
+                        fillColor: cc.altColor,
+                        filled: true,
+                      ),
+                      style: TextStyle(color: cc.whiteColor),
+                    )),
                     IconButton(
-                        onPressed: () async{
-                          await c.CreateComment(widget.commentTextController, widget.docName);
-                          setState((){});
+                        onPressed: () async {
+                          await c.CreateComment(
+                              widget.commentTextController, widget.docName);
+                          setState(() {});
                         },
                         icon: Icon(
                           Icons.add_comment_rounded,
@@ -198,9 +224,9 @@ class _PostWidgetState extends State<PostWidget> {
                         itemBuilder: (context, index) {
                           final comment = snapshot.data!.docs[index];
                           return Comment(
-                              user: comment['UserMail'],
-                              time: comment['TimeStamp'].toString(),
-                              text: comment['Message'],
+                            user: comment['UserMail'],
+                            time: comment['TimeStamp'].toString(),
+                            text: comment['Message'],
                           );
                         });
                   } else {
