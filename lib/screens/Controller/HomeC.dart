@@ -6,27 +6,32 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeC extends GetxController{
+class HomeC extends GetxController {
   TextEditingController postController = TextEditingController();
   PlatformFile? pickedFile;
 
   PlatformFile? get getPickedFile => pickedFile;
 
   UploadTask? task;
-  double get getUploadProgress => (task!.snapshot.bytesTransferred * 100.0 / task!.snapshot.totalBytes);
+  double get getUploadProgress =>
+      (task!.snapshot.bytesTransferred * 100.0 / task!.snapshot.totalBytes);
 
-
-  Future CreatePost() async{
-    if (postController.text.isNotEmpty){
+  Future CreatePost() async {
+    if (postController.text.isNotEmpty) {
       User? user = FirebaseAuth.instance.currentUser;
 
       String url = await UploadFile();
 
-      DocumentReference<Map<String, dynamic>> docRef = await FirebaseFirestore.instance.collection('Posts').add({
-        'UserMail' : user!.email,
-        'Message' : postController.text,
-        'TimeStamp' : Timestamp.now(),
-        'FileURL' : url,
+      DocumentReference<Map<String, dynamic>> docRef =
+          await FirebaseFirestore.instance.collection('Posts').add({
+        'UserMail': user!.email,
+        'Message': postController.text,
+        'TimeStamp': Timestamp.now(),
+        'FileURL': url,
+        'DPURL': (await FirebaseFirestore.instance
+            .collection('Users')
+            .doc(user.email)
+            .get())['ProfileImage'],
         'Likes': [],
       });
 
@@ -36,19 +41,19 @@ class HomeC extends GetxController{
     }
   }
 
-  Future SelectFile() async{
+  Future SelectFile() async {
     final res = await FilePicker.platform.pickFiles();
 
-    if (res != null){
-      pickedFile =  res.files.first;
+    if (res != null) {
+      pickedFile = res.files.first;
     }
   }
 
-  void ClearFile(){
+  void ClearFile() {
     pickedFile = null;
   }
 
-  Future UploadFile() async{
+  Future UploadFile() async {
     if (pickedFile == null) return 'null';
 
     final file = File(pickedFile!.path!);
@@ -57,44 +62,41 @@ class HomeC extends GetxController{
     final ref = FirebaseStorage.instance.ref().child(path);
     task = ref.putFile(file);
 
-
     await task!.whenComplete(() => pickedFile = null);
     return ref.getDownloadURL();
   }
 
-  void HandleLike(String docName) async{
-    DocumentReference docRef = FirebaseFirestore.instance.collection('Posts').doc(docName);
+  void HandleLike(String docName) async {
+    DocumentReference docRef =
+        FirebaseFirestore.instance.collection('Posts').doc(docName);
     DocumentSnapshot doc = await docRef.get();
     User? user = FirebaseAuth.instance.currentUser;
 
     List<String> likes = List<String>.from(doc['Likes'] as List);
     bool liked = false;
 
-    for (String mail in likes){
-      if (mail == user!.email){
+    for (String mail in likes) {
+      if (mail == user!.email) {
         liked = true;
         break;
       }
     }
 
-    if (liked){
+    if (liked) {
       likes.remove(user!.email);
-    }
-    else{
+    } else {
       likes.add(user!.email ?? 'null');
     }
 
-    docRef.update({
-      'Likes' : likes
-    });
+    docRef.update({'Likes': likes});
   }
 
-  bool getLikeStatus(List<String> likes){
+  bool getLikeStatus(List<String> likes) {
     User? user = FirebaseAuth.instance.currentUser;
     bool liked = false;
 
-    for (String mail in likes){
-      if (mail == user!.email){
+    for (String mail in likes) {
+      if (mail == user!.email) {
         liked = true;
         break;
       }
@@ -104,7 +106,8 @@ class HomeC extends GetxController{
   }
 
   void deletePost(String docName) {
-    DocumentReference docRef = FirebaseFirestore.instance.collection('Posts').doc(docName);
+    DocumentReference docRef =
+        FirebaseFirestore.instance.collection('Posts').doc(docName);
 
     FirebaseFirestore.instance.runTransaction((Transaction transaction) async {
       transaction.delete(docRef);
@@ -112,14 +115,19 @@ class HomeC extends GetxController{
     });
   }
 
-  Future CreateComment(TextEditingController commentTextController, docName) async{
-    if (commentTextController.text.isNotEmpty){
+  Future CreateComment(
+      TextEditingController commentTextController, docName) async {
+    if (commentTextController.text.isNotEmpty) {
       User? user = FirebaseAuth.instance.currentUser;
 
-      await FirebaseFirestore.instance.collection('Posts').doc(docName).collection('Comments').add({
-        'UserMail' : user!.email,
-        'Message' : commentTextController.text,
-        'TimeStamp' : Timestamp.now(),
+      await FirebaseFirestore.instance
+          .collection('Posts')
+          .doc(docName)
+          .collection('Comments')
+          .add({
+        'UserMail': user!.email,
+        'Message': commentTextController.text,
+        'TimeStamp': Timestamp.now(),
       });
 
       commentTextController.clear();

@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:snapjam/constants/ConstantColors.dart';
@@ -21,12 +20,15 @@ class PostWidget extends StatefulWidget {
 
   final TextEditingController commentTextController = TextEditingController();
 
+  final String? dpUrl;
+
   PostWidget(
       {super.key,
       required this.user,
       // required this.timeStamp,
       required this.message,
       this.url,
+      required this.dpUrl,
       required this.docName,
       required this.likes});
 
@@ -57,13 +59,30 @@ class _PostWidgetState extends State<PostWidget> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconButton(
-                    onPressed: () {
-                        Get.to(AccountPage(mail: widget.user));
-                      },
-                    icon: const Icon(
-                      Icons.circle_rounded,
-                      size: 32,
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(AccountPage(mail: widget.user));
+                    },
+                    child: CachedNetworkImage(
+                      imageUrl: widget.dpUrl!,
+                      imageBuilder: (context, imageProvider) => Container(
+                        width: 32,
+                        height: 32,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => const Icon(
+                        Icons.error,
+                        size: 32,
+                        color: Colors.red,
+                      ),
                     ),
                   ),
 
@@ -77,11 +96,38 @@ class _PostWidgetState extends State<PostWidget> {
                         height: 5,
                       ),
                       GestureDetector(
-                        child: Text(
-                          widget.user,
-                          style: TextStyle(color: cc.lightBlueColor),
+                        child: FutureBuilder<DocumentSnapshot>(
+                          future: getName(widget.user),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<DocumentSnapshot> snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {}
+
+                            if (snapshot.hasError) {
+                              return Text("Error: ${snapshot.error}");
+                            }
+
+                            if (!snapshot.hasData || !snapshot.data!.exists) {
+                              return const Text("Document does not exist");
+                            }
+
+                            var userData =
+                                snapshot.data!.data() as Map<String, dynamic>;
+
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  userData['FirstName'] +
+                                      ' ' +
+                                      userData['LastName'],
+                                  style: TextStyle(color: cc.lightBlueColor),
+                                ),
+                              ],
+                            );
+                          },
                         ),
-                        onTap: (){
+                        onTap: () {
                           Get.to(AccountPage(mail: widget.user));
                         },
                       ),
@@ -243,5 +289,12 @@ class _PostWidgetState extends State<PostWidget> {
           ),
       ],
     );
+  }
+
+  Future<DocumentSnapshot<Object?>> getName(String mail) async {
+    return (await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(mail)
+        .get());
   }
 }

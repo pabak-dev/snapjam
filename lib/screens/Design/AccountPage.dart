@@ -9,7 +9,7 @@ import 'package:snapjam/screens/Controller/Authentication.dart';
 import 'package:snapjam/screens/Design/Home.dart';
 
 class AccountPage extends StatefulWidget {
-  AccountPage({super.key, required this.mail});
+  const AccountPage({super.key, required this.mail});
   final String mail;
 
 
@@ -76,7 +76,7 @@ class _AccountPageState extends State<AccountPage> {
                             fontWeight: FontWeight.bold,
                             color: cc.whiteColor),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       if (widget.mail != user.email)
                       IconButton(
                           onPressed: () async {
