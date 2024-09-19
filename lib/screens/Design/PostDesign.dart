@@ -274,7 +274,7 @@ class _PostWidgetState extends State<PostWidget> {
                             time: comment['TimeStamp'].toString(),
                             text: comment['Message'],
                             id: widget.docName,
-                            cid: snapshot.data!.docs[index].id
+                            cid: comment.id
                           );
                         });
                   } else {

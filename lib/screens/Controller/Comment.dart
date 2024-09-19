@@ -79,7 +79,7 @@ class Comment extends StatelessWidget {
                   ),
                   color: cc.greyColor,
                   onPressed: () async {
-                    await FirebaseFirestore.instance.collection('Posts').doc(id).collection('Comments').doc('cid').delete();
+                    await FirebaseFirestore.instance.collection('Posts').doc(id).collection('Comments').doc(cid).delete();
                   },
                 ),
             ],
