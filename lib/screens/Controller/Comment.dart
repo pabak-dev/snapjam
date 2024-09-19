@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,8 @@ class Comment extends StatelessWidget {
   final String text;
   final String user;
   final String time;
+  final String id;
+  final String cid;
   final ConstantColors cc = ConstantColors();
 
   User? userFirebase = FirebaseAuth.instance.currentUser;
@@ -15,6 +18,8 @@ class Comment extends StatelessWidget {
     required this.text,
     required this.user,
     required this.time,
+    required this.id,
+    required this.cid,
   });
 
   @override
@@ -73,7 +78,9 @@ class Comment extends StatelessWidget {
                     size: 28,
                   ),
                   color: cc.greyColor,
-                  onPressed: () {/*c.deletePost(docName);*/},
+                  onPressed: () async {
+                    await FirebaseFirestore.instance.collection('Posts').doc(id).collection('Comments').doc('cid').delete();
+                  },
                 ),
             ],
           ),

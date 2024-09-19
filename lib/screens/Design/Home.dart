@@ -127,7 +127,7 @@ class _HomeState extends State<Home> {
 
                               return (List<String>.from(
                                           userData['Following'] as List)
-                                      .contains(post['UserMail']))
+                                      .contains(post['UserMail']) || post['UserMail'] == user!.email!)
                                   ? PostWidget(
                                       user: post['UserMail'],
                                       /*timeStamp: post['TimeStamp'],*/

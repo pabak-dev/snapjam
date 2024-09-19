@@ -273,6 +273,8 @@ class _PostWidgetState extends State<PostWidget> {
                             user: comment['UserMail'],
                             time: comment['TimeStamp'].toString(),
                             text: comment['Message'],
+                            id: widget.docName,
+                            cid: snapshot.data!.docs[index].id
                           );
                         });
                   } else {
