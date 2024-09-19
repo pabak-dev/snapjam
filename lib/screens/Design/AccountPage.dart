@@ -12,8 +12,6 @@ class AccountPage extends StatefulWidget {
   const AccountPage({super.key, required this.mail});
   final String mail;
 
-
-
   @override
   State<AccountPage> createState() => _AccountPageState();
 }
@@ -91,7 +89,23 @@ class _AccountPageState extends State<AccountPage> {
                           ))
                     ],
                   ),
-                  const SizedBox(height: 16.0),
+                  const SizedBox(height: 6.0),
+                  Text(
+                    List<String>.from(snapshot.data!['Followers'] as List).length.toString() + ' Followers',
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: cc.blueColor),
+                  ),
+                  const SizedBox(height: 4.0),
+                  Text(
+                    List<String>.from(snapshot.data!['Following'] as List).length.toString() + ' Following',
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: cc.yellowColor),
+                  ),
+                  const SizedBox(height: 14.0),
                   const Divider(),
                   ListTile(
                     leading: Icon(
